@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blogApp',
-        'USER': 'harshita',
-        'PASSWORD': '123',
+        'USER': 'samyak3009',
+        'PASSWORD': 'samyak',
         'HOST': 'localhost',
         'PORT': '5432',
     }
