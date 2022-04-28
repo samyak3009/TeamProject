@@ -3,7 +3,7 @@ html {
   line-height: 1.15;
  }
 
-body {
+body{
   color: black;
   margin-top: 5rem;
 
@@ -46,15 +46,13 @@ ul {
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 3px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  border: 1px solid black;
-    border-radius: 25px;
-    box-shadow: 5px 5px 5px 5px rgba(63, 62, 63, 0.4)
 }
 
 .article-title {
   color: #444444;
+  font-size:20px;
 }
 
 a.article-title:hover {
@@ -108,7 +106,19 @@ a.article-title:hover {
   transform: scale(1.5); 
  }
 
+/* vertical nav css */
 
+.vertical-nav {
+  padding-top: 70px;
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
 
 
 
