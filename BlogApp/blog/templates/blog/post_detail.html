@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
 {% extends "blog/base.html" %}
 {% block content %}
   <article class="media content-section">
@@ -18,33 +18,7 @@
       <img class="img-fluid img-thumbnail" src="{{object.post_image.url}}" alt="" style="height:300px;width:300px">
       <p class="article-content">{{ object.content }}</p>
 
-      <p>
-
-
-        <a href="#" title="Love it" class="btn btn-counter" data-count="0"><span>&#x2764;</span></a>
-       
-      </p>
+     
     </div>
   </article>
 {% endblock content %}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" integrity="sha512-egJ/Y+22P9NQ9aIyVCh0VCOsfydyn8eNmqBy+y2CnJG+fpRIxXMS6jbWP8tVKp0jp+NO5n8WtMUAnNnGoJKi4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-  /* 
- * Love button for Design it & Code it
- * http://designitcodeit.com/i/9
- */
-$('.btn-counter').on('click', function(event, count) {
-  event.preventDefault();
-  
-  var $this = $(this),
-      count = $this.attr('data-count'),
-      active = $this.hasClass('active'),
-      multiple = $this.hasClass('multiple-count');
-  
-  
-  $.fn.noop = $.noop;
-  $this.attr('data-count', ! active || multiple ? ++count : --count  )[multiple ? 'noop' : 'toggleClass']('active');
-  
-});
-</script>
