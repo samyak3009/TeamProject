@@ -18,7 +18,10 @@
       <img class="img-fluid img-thumbnail" src="{{object.post_image.url}}" alt="" style="height:300px;width:300px">
       <p class="article-content">{{ object.content }}</p>
       <span>#{{post.category}}</span>
-
+      <form action="{% url 'like_post' post.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Likes</button> - {{totallikes}} Likes
+      </form>
      
     </div>
   </article>
