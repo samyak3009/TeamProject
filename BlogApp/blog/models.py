@@ -19,7 +19,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     post_image = models.ImageField(blank=True, upload_to='media/profile_pics')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=20, default='coding')
+    category = models.CharField(max_length=20,choices=[], default='coding')
 
     def __str__(self):
         return self.title
