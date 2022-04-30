@@ -13,6 +13,7 @@
         <img class="img-fluid img-thumbnail" src="{{post.post_image.url}}" alt="" style="height:300px;width:300px" >
         
         <p class="article-content"><i>{{ post.content }}</i></p>
+        <a href="{% url 'category' post.category|slugify%}"> <span>#{{post.category}}<span></a>
 
     </div>
 
