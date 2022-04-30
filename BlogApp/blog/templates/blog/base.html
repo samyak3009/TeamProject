@@ -78,6 +78,23 @@
             <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
           
             <ul class="nav flex-column bg-white mb-0">
+
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+
+
+
+
               {% if user.is_authenticated %}
               <li class="nav-item">
                 
@@ -98,6 +115,15 @@
                           New Post
                       </a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-dark font-italic" href="{% url 'category-create' %}">
+                  <i class="fas fa-code-branch mr-2 text-primary fa-fw"></i>
+                  Add Category</a>
+              </li>
+             
+
+
               <li class="nav-item">
                 <a href="{% url 'logout' %}"class="nav-link text-dark font-italic">
                   <i class="fa fa-sign-out mr-3 text-primary fa-fw" ></i>
