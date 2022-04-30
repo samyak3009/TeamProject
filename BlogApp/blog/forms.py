@@ -1,12 +1,9 @@
+from secrets import choice
 from django import forms
 from .models import Post,Category
 
 
-choices=Category.objects.all().values_list('name', 'name')
 choice_list=[]
-
-for item in choices:
-    choice_list.append(item)
 
 class UploadForm(forms.ModelForm):
 
@@ -16,3 +13,16 @@ class UploadForm(forms.ModelForm):
         widgets={
             'category': forms.Select(choices=choice_list,attrs={'class':'form-control'})
         }
+    def __init__(self,*args,**kwargs):
+        print("samayk")
+        super(UploadForm, self).__init__(*args, **kwargs)
+        choice = []
+        choices_list=Category.objects.all().values_list('name', 'name')        
+        for item in choices_list:
+            choice.append(item)
+        print(self.fields['category'].choices)
+        self.fields['category'].choices = choice
+
+
+
+

@@ -70,7 +70,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = UploadForm
+    form_class = UploadForm     
     context_object_name = 'post'
     template_name = 'blog/post_form.html'
 
