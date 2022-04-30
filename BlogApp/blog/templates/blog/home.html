@@ -14,31 +14,10 @@
         
         <p class="article-content"><i>{{ post.content }}</i></p>
         <a href="{% url 'category' post.category|slugify%}"> <span>#{{post.category}}<span></a>
+          <br/><br/>
+          <!-- <a href="{% url 'blog-home' %}"></a> -->
          
     </div>
-
-    <div> 
-    
-      <input type="button" id="like" onclick="mylike()" value="Like"/>
-    <input type="button" id="dislike" onclick="mydislike()" value="Dislike" />
-    <p><span id="no" style="padding-right: 3px;">0</span>likes</p>
-       <script>
-        let count=0;
-            function mylike() {
-            document.getElementById('like').disabled = true;
-            document.getElementById('dislike').disabled = false;
-            count=count+1;
-            document.getElementById('no').innerHTML=count;
-            }
-            function mydislike(){
-            document.getElementById('dislike').disabled = true;
-            document.getElementById('like').disabled = false;
-            count=count-1;
-            document.getElementById('no').innerHTML=count;
-            }
-        </script>
-        </div>
-        </div>
 
 </article>
 {% endfor %}
