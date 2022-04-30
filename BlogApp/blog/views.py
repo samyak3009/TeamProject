@@ -73,10 +73,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = UploadForm     
     context_object_name = 'post'
     template_name = 'blog/post_form.html'
+    success_url = '/blog/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    # def success(req):
+    #     return render(req, 'blog/post_detail.html')
 
 
 
