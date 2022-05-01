@@ -1,7 +1,7 @@
 
 {% extends "blog/base.html" %}
 {% block content %}
-  <article class="media content-section">
+  <article class="media content-section ">
     <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
     <div class="media-body">
       <div class="article-metadata">
@@ -9,7 +9,7 @@
         <div class="date">
           <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small></div>
         {% if object.author == user %}
-          <div>
+          <div class="mr-4">
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
           </div>
@@ -25,10 +25,65 @@
       <p class="article-content" style="font-size: 14px;">{{ object.content }}</p>
       <span>#{{post.category}}</span>
       </div>
-      <form action="{% url 'like_post' post.pk %}" method="POST">
+      <form  class="form-group" action="{% url 'like_post' post.pk %}" method="POST">
         {% csrf_token %}
-        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Likes</button> - {{totallikes}} Likes
-      </form>
+
+      {% if user.is_authenticated %}
+      <div class="ml-3">
+        {% if liked %}
+        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">UnLike</button> 
+        {% else %}
+        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button> 
+      {% endif %}
+     
+     {% else %}
+     <small><a href="{% url 'login' %}">Login</a> to like</small>
+     {% endif %}
+      - {{totallikes}} Likes
+    </form>
+    <br/><br/>
+    <!-- <h2>Commments...</h2>
+    <br/><br/>
+    <hr/>
+    {% if not post.comments.all %}
+       No Comments Yet... <a href="#">Add One</a>
+      {% else %}
+        {% for comment in post.comments.all %}
+          <strong>
+            {{comment.name}} -
+            {{comment.date_added}}
+          </strong>
+          <br/>
+           {{comment.body}}
+           <br/><br/>
+           
+        {% endfor %}
+    {% endif %} -->
+    <hr/>
+    <h2>Commments...</h2>
+    
+    <hr/>
+    {% if not post.comments.all %}
+       No Comments Yet... <a href="#">Add One</a>
+      {% else %}
+      <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
+      <br/><br/>
+        {% for comment in post.comments.all %}
+          <strong>
+            {{comment.name}} -
+            {{comment.date_added}}
+          </strong>
+          <br/>
+           {{comment.body}}
+           <br/><br/>
+           
+        {% endfor %}
+        <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
+    {% endif %}
+
+    <br/>
+   
+    <br/><br>
     </div>
   </article>
 {% endblock content %}

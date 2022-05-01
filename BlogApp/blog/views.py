@@ -1,5 +1,5 @@
-from traceback import print_tb
-from .forms import UploadForm
+
+from .forms import UploadForm,CommentForm
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -14,22 +14,29 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Post,Category
+from .models import Comment, Post,Category,Comment
 from django.contrib.auth.decorators import login_required
 
 
 @login_required
 def LikeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
+    liked=False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked=False
+    else:
+        post.likes.add(request.user)
+        liked=True
+    
     return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
 
 def search_data(request):
     if request.method=="POST":
-        data=request.POST["search"]
+        data=request.POST["search"] #MUMBAI
         #print(data)
-        status = Post.objects.filter(title=data)
-        print(status)
+        status = Post.objects.filter(title__icontains=data)
+        #print(status)
         return render(request,"blog/searchData.html",{"postes":status})
         
     else:
@@ -60,10 +67,12 @@ class PostListView(ListView):
     paginate_by = 5
 
     def get_context_data(self, **kwargs): 
-        categories_list =Category.objects.all()
+        categories_list =Category.objects.all() 
         context = super(PostListView,self).get_context_data(**kwargs)
         context['categories_list'] = categories_list
         return context
+
+   
 
 
 class UserPostListView(ListView):
@@ -84,7 +93,11 @@ class PostDetailView(DetailView):
         context = super(PostDetailView,self).get_context_data()
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
         totallikes = stuff.total_likes()
+        liked=False
+        if stuff.likes.filter(id=self.request.user.id):
+            liked=True
         context["totallikes"] = totallikes
+        context["liked"]=liked
         return context
         
 
@@ -95,13 +108,23 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = UploadForm     
     context_object_name = 'post'
     template_name = 'blog/post_form.html'
-    success_url = '/blog/'
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
     # def success(req):
     #     return render(req, 'blog/post_detail.html')
+
+class AddCommentView(LoginRequiredMixin, CreateView):
+    model = Comment    
+    form_class = CommentForm 
+    template_name = 'blog/add_comments.html'
+    success_url = '/'
+    def form_valid(self,form):
+        form.instance.post_id=self.kwargs['pk']
+        return super().form_valid(form)
+   
 
 
 
@@ -111,8 +134,8 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
     fields='__all__'
     context_object_name = 'cats'
     template_name = 'blog/addCategory_form.html'
-    success_message = 'Employee successful created'
-    success_url = '/blog/add_category/'
+    #success_message = 'Employee successful created'
+    success_url = '/add_category/'
 
 
     
@@ -133,7 +156,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/blog'
+    success_url = '/'
 
     def test_func(self):
         post = self.get_object()
