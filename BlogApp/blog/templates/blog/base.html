@@ -30,6 +30,7 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
           <a class="navbar-brand mr-4" href="{% url 'blog-home' %}" style="color: black;">Blog App</a>
+        
           {% if user.is_authenticated %}
           <div class="search">
             <form action="#">
@@ -79,18 +80,26 @@
           
             <ul class="nav flex-column bg-white mb-0">
 
-
-              <li class="nav-item dropdown">
+              {% if categories_list %}
+               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown
                 </a>
+
+                
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
+
+                  {% for items in categories_list %}
+                     <a class="dropdown-item" href="{% url 'category' items.id|slugify%}">{{items}}</a>
+                  {% endfor %}
                 </div>
               </li>
+              {% endif %}
+
+                 <!-- {% for items in categories_list %}
+                     <a class="dropdown-item" href="{% url 'category' items|slugify%}">{{items}}</a>
+                  {% endfor %}
+         -->
 
 
 
@@ -118,7 +127,7 @@
 
               <li class="nav-item">
                 <a class="nav-link text-dark font-italic" href="{% url 'category-create' %}">
-                  <i class="fas fa-code-branch mr-2 text-primary fa-fw"></i>
+                  <i class="fas fa-code-branch mr-3 text-primary fa-fw"></i>
                   Add Category</a>
               </li>
              
@@ -162,11 +171,10 @@
       </div>
     </main>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </div>
 
 </body>
