@@ -64,7 +64,7 @@
     
     <hr/>
     {% if not post.comments.all %}
-       No Comments Yet... <a href="#">Add One</a>
+       No Comments Yet... <a href="{% url 'add_comment' post.pk %}">Add One</a>
       {% else %}
       <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
       <br/><br/>
