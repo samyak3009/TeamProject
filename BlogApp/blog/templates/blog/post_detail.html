@@ -60,11 +60,9 @@
         {% endfor %}
     {% endif %} -->
     <hr/>
-    <h2>Commments...</h2>
-    
     <hr/>
     {% if not post.comments.all %}
-       No Comments Yet... <a href="{% url 'add_comment' post.pk %}">Add One</a>
+       <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
       {% else %}
       <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
       <br/><br/>
@@ -78,7 +76,6 @@
            <br/><br/>
            
         {% endfor %}
-        <a href="{% url 'add_comment' post.pk %}">Add Comments</a>
     {% endif %}
 
     <br/>
