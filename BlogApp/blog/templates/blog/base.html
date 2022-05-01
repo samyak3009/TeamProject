@@ -32,9 +32,10 @@
         <div class="container" style="margin-left: 0px;">
           <a class="navbar-brand mr-4" href="{% url 'blog-home' %}" style="color: black; ">MyBlogbook</a>
 
-          {% if user.is_authenticated %}
+        
           <div class="search" style="margin-left: 600px;">
-            <form action="#">
+            <form method=POST action="{% url 'search-data' %}">
+              {% csrf_token %}
                 <input type="text"
                     placeholder=" Search"
                     name="search">
@@ -45,7 +46,7 @@
                 </button>
             </form>
           </div>
-          {% endif %}
+     
           <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button> -->
@@ -82,10 +83,22 @@
             <ul class="nav flex-column bg-white mb-0">
 
 
+              <!-- <li class="nav-item">
+                
+                <a href="{% url 'blog-home' %}" class="nav-link text-dark bg-light">
+                          <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                          Home
+                      </a>
+              </li> -->
+
+
+
+
               {% if categories_list %}
                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
+                <a class="nav-link text-dark bg-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-arrow-down mr-3 text-primary fa-fw"></i>
+                  All Categories
                 </a>
 
                 
