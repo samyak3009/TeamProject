@@ -14,8 +14,10 @@ from django.views.generic import (
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Post,Category
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def LikeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     post.likes.add(request.user)
@@ -42,6 +44,12 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
     paginate_by = 5
+
+    def get_context_data(self, **kwargs): 
+        categories_list =Category.objects.all()
+        context = super(PostListView,self).get_context_data(**kwargs)
+        context['categories_list'] = categories_list
+        return context
 
 
 class UserPostListView(ListView):
@@ -73,6 +81,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = UploadForm     
     context_object_name = 'post'
     template_name = 'blog/post_form.html'
+    success_url = '/blog/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -86,8 +95,8 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
     fields='__all__'
     context_object_name = 'cats'
     template_name = 'blog/addCategory_form.html'
-    # messages.success(f'Your account has been created! You are now able to login.')
     success_message = 'Employee successful created'
+    success_url = '/blog/add_category/'
 
 
     

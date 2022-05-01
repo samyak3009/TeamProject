@@ -13,12 +13,14 @@
         <img class="img-fluid img-thumbnail" src="{{post.post_image.url}}" alt="" style="height:300px;width:300px" >
         
         <p class="article-content"><i>{{ post.content }}</i></p>
-        <a href="{% url 'category' post.category|slugify%}"> <span>#{{post.category}}<span></a>
+        <a href="{% url 'category' post.category.id|slugify%}"> <span>#{{post.category}}<span></a>
           <br/><br/>
           <!-- <a href="{% url 'blog-home' %}"></a> -->
          
     </div>
 
+
+  
 </article>
 {% endfor %}
  {% if is_paginated %}
