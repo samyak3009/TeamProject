@@ -12,6 +12,7 @@ body{
   background-repeat: no-repeat; 
   background-size: cover;
   background-position: auto;
+  margin-right: 110px;
 }
 
 h1, h2, h3, h4, h5, h6 {
