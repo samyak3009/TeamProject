@@ -1,6 +1,6 @@
 from secrets import choice
 from django import forms
-from .models import Post,Category
+from .models import Post , Category
 
 
 
@@ -8,7 +8,7 @@ choice_list=Category.objects.all().values_list('name', 'name').order_by()
 class UploadForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'post_image', 'category']
+        fields = ['title', 'content', 'post_image','category']
         widgets={
             'category': forms.Select(choices=choice_list,attrs={'class':'form-control'})
         }

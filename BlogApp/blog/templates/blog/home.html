@@ -2,21 +2,32 @@
 {% block content %}
 {% for post in posts %}
 <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
     <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-        </div>
+      
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-fluid img-thumbnail" style="border-radius: 10px; border: 0px;"  src="{{post.post_image.url}}" alt=""  >
+            </div>
+            <div class="col-md-6">
 
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}"><b>{{ post.title }}</b></a></h2>
-        <img class="img-fluid img-thumbnail" src="{{post.post_image.url}}" alt="" style="height:300px;width:300px" >
-        
-        <p class="article-content"><i>{{ post.content }}</i></p>
-        <a href="{% url 'category' post.category.id|slugify%}"> <span>#{{post.category}}<span></a>
-          <br/><br/>
-          <!-- <a href="{% url 'blog-home' %}"></a> -->
-         
+        <p class="article-content" style="font-size:15px" ><i>{{ post.content }}</i></p>
+        <a href="{% url 'category' post.category|slugify%}"> <span>#{{post.category}}<span></a>
+
+          <hr>
+          <div class="row">
+            <div class="col-md-1">
+            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+          </div>
+              <div class="col-md-4 article-metadata">
+                  <a class="mr-2" href="#">{{ post.author }}</a>
+                  <div class="date">
+                  <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>     
     </div>
 
 

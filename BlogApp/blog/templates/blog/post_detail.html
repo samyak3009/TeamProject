@@ -6,7 +6,8 @@
     <div class="media-body">
       <div class="article-metadata">
         <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
-        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+        <div class="date">
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small></div>
         {% if object.author == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
@@ -14,15 +15,20 @@
           </div>
         {% endif %}
       </div>
-      <h2 class="article-title">{{ object.title }}</h2>
-      <img class="img-fluid img-thumbnail" src="{{object.post_image.url}}" alt="" style="height:300px;width:300px">
-      <p class="article-content">{{ object.content }}</p>
+      <div class="row">
+        <div class="col-md-6">
+      
+      <img class="img-fluid img-thumbnail" src="{{object.post_image.url}}" alt="" style="border-radius: 10px; border: 0px;">
+      </div>
+      <div class="col-md-6">
+      <h2 class="article-title"><b>{{ object.title }}</b></h2>
+      <p class="article-content" style="font-size: 14px;">{{ object.content }}</p>
       <span>#{{post.category}}</span>
+      </div>
       <form action="{% url 'like_post' post.pk %}" method="POST">
         {% csrf_token %}
         <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Likes</button> - {{totallikes}} Likes
       </form>
-     
     </div>
   </article>
 {% endblock content %}
