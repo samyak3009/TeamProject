@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='category',
-            field=models.ForeignKey(default='coding', on_delete=django.db.models.deletion.CASCADE, to='blog.category'),
+            field=models.ForeignKey( on_delete=django.db.models.deletion.CASCADE, to='blog.category'),
         ),
     ]
