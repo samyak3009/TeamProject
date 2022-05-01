@@ -22,8 +22,3 @@ class UploadForm(forms.ModelForm):
             self.fields['category'].choices = choice
         except(ValueError, TypeError):
             pass
-        print(self.fields['category'].choices,"sasasa")
-
-
-
-
