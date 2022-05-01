@@ -8,7 +8,8 @@ from .views import (
     UserPostListView,
     AddCategoryView,
     CategoryView,
-    LikeView
+    LikeView,
+    AddCommentView
 )
 from . import views
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path('about/', views.about, name='blog-about'),
     path('category/<str:cats>/', CategoryView, name='category'),
     path('like/<int:pk>', LikeView, name='like_post'),
-    path('search/', views.search_data, name='search-data')
+    path('search/', views.search_data, name='search-data'),
+    path('article/<int:pk>/comment/', AddCommentView.as_view(),name="add_comment")
    
 ]

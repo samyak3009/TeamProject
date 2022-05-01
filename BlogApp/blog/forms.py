@@ -1,6 +1,6 @@
-from secrets import choice
+
 from django import forms
-from .models import Post , Category
+from .models import Comment, Post , Category,Comment
 
 
 
@@ -22,3 +22,13 @@ class UploadForm(forms.ModelForm):
             self.fields['category'].choices = choice
         except(ValueError, TypeError):
             pass
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=Comment
+        fields=('name', 'body')
+        widgets={
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'body': forms.Textarea(attrs={'class':'form-control'})
+        }
