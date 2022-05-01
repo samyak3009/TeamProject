@@ -11,15 +11,27 @@
                 <div class="media-body">
                     <div class="article-metadata">
                         <a class="mr-2" href="#">{{ post.author }}</a>
+                  
+                    <div class="date">
                         <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                     </div>
+                </div>
 
 
-                    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-                    <!-- <a class="article-title" href="{% url 'post-detail' post.id %}">{{post.category}}</a> -->
-                    <img class="img-fluid img-thumbnail" src="{{post.post_image.url}}" alt="" style="height:300px;width:300px" >
                     
-                    <p class="article-content"><i><b>{{ post.content }}</b></i></p>
+                    <!-- <a class="article-title" href="{% url 'post-detail' post.id %}">{{post.category}}</a> -->
+                    <div class="row">
+                        <div class="col-md-6">
+                    <img class="img-fluid img-thumbnail" src="{{post.post_image.url}}" alt="" style="border: 0px;border-radius: 10px;" >
+                    </div>
+                    <div class="col-md-6">
+
+                        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                        <p class="article-content"><i><b>{{ post.content }}</b></i></p>
+                    </div>
+
+                    
+                    
                     <!-- <span>#{{post.category}}<span> -->
 
 

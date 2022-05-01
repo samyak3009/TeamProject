@@ -22,8 +22,8 @@ def home(request):
 
 
 def CategoryView(request, cats):
-    category_post = Post.objects.filter(category=cats.replace('-', ' '))
-    return render(request, 'blog/categories.html',{'cats':cats.title().replace('-',' '), 'category_post': category_post})
+     category_post = Post.objects.filter(category=cats.replace('-', ' '))
+     return render(request, 'blog/categories.html',{'cats':cats.title().replace('-',' '), 'category_post': category_post})
 
 class PostListView(ListView):
     model = Post
