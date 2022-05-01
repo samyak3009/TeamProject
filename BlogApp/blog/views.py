@@ -1,3 +1,4 @@
+from traceback import print_tb
 from .forms import UploadForm
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -22,6 +23,19 @@ def LikeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     post.likes.add(request.user)
     return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+
+def search_data(request):
+    if request.method=="POST":
+        data=request.POST["search"]
+        #print(data)
+        status = Post.objects.filter(title=data)
+        print(status)
+        return render(request,"blog/searchData.html",{"postes":status})
+        
+    else:
+        return render(request, 'blog/searchData.html',{})
+         
+
 
 
 def home(request):
