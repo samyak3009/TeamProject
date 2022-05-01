@@ -2,9 +2,8 @@
 {% block content %}
 {% for post in posts %}
 <article class="media content-section">
-    <div class="media-body">
-      
-        <div class="row">
+    <div class="media-body row">
+    
           <div class="col-md-6">
             <img class="img-fluid img-thumbnail" style="border-radius: 10px; border: 0px;"  src="{{post.post_image.url}}" alt=""  >
             </div>
@@ -13,7 +12,7 @@
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}"><b>{{ post.title }}</b></a></h2>
         <p class="article-content" style="font-size:15px" ><i>{{ post.content }}</i></p>
         <a href="{% url 'category' post.category|slugify%}"> <span>#{{post.category}}<span></a>
-
+          
           <hr>
           <div class="row">
             <div class="col-md-1">
@@ -26,11 +25,8 @@
               </div>
             </div>
           </div>
+        
         </div>
-        </div>     
-    </div>
-
-
   
 </article>
 {% endfor %}
