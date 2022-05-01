@@ -1,3 +1,4 @@
+from statistics import mode
 from unicodedata import category
 from django.db import models
 from django.urls import reverse
@@ -9,8 +10,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('blog-home')
+    # def get_absolute_url(self):
+    #     return reverse('blog-home')
 
 
 class Post(models.Model):
@@ -19,10 +20,14 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     post_image = models.ImageField(blank=True, upload_to='media/profile_pics')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=20, default='coding')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default='coding')
+    likes = models.ManyToManyField(User, related_name='blog_posts')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('post-detail', kwargs={'pk': self.pk})

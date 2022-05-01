@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,6 +14,12 @@ from django.views.generic import (
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Post,Category
+
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
 
 
 def home(request):
@@ -24,6 +32,9 @@ def home(request):
 def CategoryView(request, cats):
      category_post = Post.objects.filter(category=cats.replace('-', ' '))
      return render(request, 'blog/categories.html',{'cats':cats.title().replace('-',' '), 'category_post': category_post})
+
+
+
 
 class PostListView(ListView):
     model = Post
@@ -46,17 +57,29 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    template_name='blog/post_detail.html'
+    def get_context_data(self, **kwargs): 
+        context = super(PostDetailView,self).get_context_data()
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        totallikes = stuff.total_likes()
+        context["totallikes"] = totallikes
+        return context
+        
+
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = UploadForm
+    form_class = UploadForm     
     context_object_name = 'post'
     template_name = 'blog/post_form.html'
+    success_url = '/blog/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    # def success(req):
+    #     return render(req, 'blog/post_detail.html')
 
 
 
